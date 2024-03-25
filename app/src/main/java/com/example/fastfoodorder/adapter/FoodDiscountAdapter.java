@@ -1,11 +1,14 @@
 package com.example.fastfoodorder.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,8 +45,6 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
         holder.txtFoodPrice.setText(String.valueOf(foods.get(position).getUnitPrice()));
 
         Picasso.get().load(foods.get(position).getImage()).into(holder.imgFood);
-
-        //holder.imgFood.setImageURI(Uri.parse(foods.get(position).getImage()));
     }
 
     @Override
