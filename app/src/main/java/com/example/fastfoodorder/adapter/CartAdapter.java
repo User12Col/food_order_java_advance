@@ -1,14 +1,11 @@
 package com.example.fastfoodorder.adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,14 +13,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fastfoodorder.R;
-import com.example.fastfoodorder.Screens.FoodDetailActivity;
 import com.example.fastfoodorder.api.CartApiService;
 import com.example.fastfoodorder.models.Cart;
 import com.example.fastfoodorder.models.Food;
 import com.example.fastfoodorder.models.ResponeObject;
 import com.example.fastfoodorder.models.User;
 import com.example.fastfoodorder.storage.DataLocalManager;
-import com.google.gson.Gson;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -33,45 +28,37 @@ import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapter.ViewHolder>{
+public class CartAdapter extends RecyclerView.Adapter<CartAdapter.ViewHolder>{
     private Context context;
-    private List<Food> foods;
+    private List<Cart> carts;
     double quantity = 0;
+    double price = 0;
 
-    public FoodDiscountAdapter(Context context, List<Food> foods) {
+    public CartAdapter(Context context, List<Cart> carts) {
         this.context = context;
-        this.foods = foods;
+        this.carts = carts;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View heroView = inflater.inflate(R.layout.food_layout, parent, false);
+        View heroView = inflater.inflate(R.layout.item_cart_layout, parent, false);
         ViewHolder viewHolder = new ViewHolder(heroView);
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtFoodName.setText(foods.get(position).getName());
-        holder.txtFoodDescribe.setText(foods.get(position).getDescription());
-        holder.txtFoodPrice.setText(String.valueOf(foods.get(position).getUnitPrice()));
+        holder.txtFoodCartName.setText(carts.get(position).getFood().getName());
+        holder.txtQuantityCart.setText(String.valueOf(carts.get(position).getQuantity()));
+        Picasso.get().load(carts.get(position).getFood().getImage()).into(holder.imgFoodCart);
+        holder.txtFoodCartPrice.setText(String.valueOf(carts.get(position).getQuantity() * carts.get(position).getFood().getUnitPrice()));
 
-        Picasso.get().load(foods.get(position).getImage()).into(holder.imgFood);
-
-        Food selectFood = foods.get(position);
+        Food selectFood = carts.get(position).getFood();
         User user = DataLocalManager.getUser();
-        holder.foodItemLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Gson gson = new Gson();
-                Intent intent = new Intent(context.getApplicationContext(), FoodDetailActivity.class);
-                intent.putExtra("food", gson.toJson(selectFood));
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(intent);
-            }
-        });
+
+        price = carts.get(position).getQuantity() * carts.get(position).getFood().getUnitPrice();
 
         CartApiService.cartApiService.getQuantity(selectFood.getFoodID(), user.getUserID())
                 .subscribeOn(Schedulers.io())
@@ -97,11 +84,11 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
 
                     @Override
                     public void onComplete() {
-                        holder.txtQuantity.setText(String.valueOf((int)quantity));
+                        holder.txtQuantityCart.setText(String.valueOf((int)quantity));
                     }
                 });
 
-        holder.btnIncrease.setOnClickListener(new View.OnClickListener() {
+        holder.btnIncreaseCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Cart cart = new Cart(selectFood, user, 1, selectFood.getUnitPrice());
@@ -126,14 +113,16 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
 
                             @Override
                             public void onComplete() {
-                                quantity = quantity + 1.0;
-                                holder.txtQuantity.setText(String.valueOf((int)quantity));
+                                quantity = quantity + 1;
+                                price = price + selectFood.getUnitPrice();
+                                holder.txtQuantityCart.setText(String.valueOf((int)quantity));
+                                holder.txtFoodCartPrice.setText(String.valueOf((int)price));
                             }
                         });
             }
         });
 
-        holder.btnDecrease.setOnClickListener(new View.OnClickListener() {
+        holder.btnDecreaseCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(quantity > 1){
@@ -159,8 +148,10 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
 
                                 @Override
                                 public void onComplete() {
-                                    quantity = quantity - 1.0;
-                                    holder.txtQuantity.setText(String.valueOf((int)quantity));
+                                    quantity = quantity - 1;
+                                    price = price - selectFood.getUnitPrice();
+                                    holder.txtQuantityCart.setText(String.valueOf((int)quantity));
+                                    holder.txtFoodCartPrice.setText(String.valueOf((int)price));
                                 }
                             });
                 } else if(quantity == 1){
@@ -185,8 +176,8 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
 
                                 @Override
                                 public void onComplete() {
-                                    quantity = quantity - 1.0;
-                                    holder.txtQuantity.setText(String.valueOf((int)quantity));
+                                    quantity = quantity - 1;
+                                    holder.txtQuantityCart.setText(String.valueOf((int)quantity));
                                 }
                             });
                 }
@@ -197,26 +188,25 @@ public class FoodDiscountAdapter extends RecyclerView.Adapter<FoodDiscountAdapte
 
     @Override
     public int getItemCount() {
-        return foods.size();
+        return carts.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView txtFoodName, txtFoodDescribe, txtFoodPrice, txtQuantity;
-        private Button btnDecrease, btnIncrease;
-        private ImageView imgFood;
-        private LinearLayout foodItemLayout;
+        private TextView txtFoodCartName, txtFoodCartPrice, txtQuantityCart;
+        private Button btnDecreaseCart, btnIncreaseCart;
+        private ImageView imgFoodCart;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtFoodName = itemView.findViewById(R.id.txtFoodName);
-            txtFoodDescribe = itemView.findViewById(R.id.txtFoodDescribe);
-            txtFoodPrice = itemView.findViewById(R.id.txtFoodPrice);
-            txtQuantity = itemView.findViewById(R.id.txtQuantity);
+            txtFoodCartName = itemView.findViewById(R.id.txtFoodCartName);
+            txtFoodCartPrice = itemView.findViewById(R.id.txtCartPrice);
+            txtQuantityCart = itemView.findViewById(R.id.txtQuantityCart);
 
-            btnDecrease = itemView.findViewById(R.id.btnDecrease);
-            btnIncrease = itemView.findViewById(R.id.btnIncrease);
+            btnDecreaseCart = itemView.findViewById(R.id.btnDecreaseCart);
+            btnIncreaseCart = itemView.findViewById(R.id.btnIncreaseCart);
 
-            imgFood = itemView.findViewById(R.id.imgFood);
-            foodItemLayout = itemView.findViewById(R.id.foodItemLayout);
+            imgFoodCart = itemView.findViewById(R.id.imgFoodCart);
+
         }
     }
 }
