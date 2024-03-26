@@ -59,13 +59,13 @@
                 android:text="-" />
 
             <TextView
-                android:id="@+id/count_product"
+                android:id="@+id/txtQuantity"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:textAlignment="center"
                 android:text="0"
-                android:textSize="20sp" />
+                android:textSize="14dp" />
 
             <Button
                 android:id="@+id/btnIncrease"
