@@ -18,7 +18,6 @@ import com.example.fastfoodorder.fragment.fragment_notification;
 import com.example.fastfoodorder.fragment.fragment_order;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     ImageButton imageButton3;
 
@@ -56,7 +55,6 @@ public class MainActivity extends AppCompatActivity {
             return true;
         });
     }
-
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
