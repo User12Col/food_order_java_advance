@@ -30,7 +30,6 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class fragment_home extends Fragment {
-
     private int currentValue = 0;
     private TextView textView;
     private RecyclerView rclDiscount;

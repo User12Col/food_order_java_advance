@@ -18,7 +18,6 @@ import com.example.fastfoodorder.fragment.fragment_notification;
 import com.example.fastfoodorder.fragment.fragment_order;
 
 public class MainActivity extends AppCompatActivity {
-
     ActivityMainBinding binding;
     ImageButton imageButton3;
 
