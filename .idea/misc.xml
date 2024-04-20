@@ -7,6 +7,7 @@
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1685" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_address.xml" value="0.1" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_cart_screen.xml" value="0.1" />
+        <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_edit_password.xml" value="0.2" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_food_detail.xml" value="0.1" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_login_screen.xml" value="0.2" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/activity_main.xml" value="0.2" />
@@ -18,6 +19,7 @@
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/fragment_home.xml" value="0.2" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/fragment_notification.xml" value="0.1" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/item_cart_layout.xml" value="0.1" />
+        <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/layout/loading_dialog.xml" value="0.2" />
         <entry key="..\:/ChuongTrinh/Mobile/FastFoodOrder/app/src/main/res/menu/menu_icon.xml" value="0.2" />
       </map>
     </option>
