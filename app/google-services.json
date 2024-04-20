@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "941404208526",
+    "project_id": "android-advance",
+    "storage_bucket": "android-advance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:941404208526:android:25dba447d516b39f8978df",
+        "android_client_info": {
+          "package_name": "com.example.fastfoodorder"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDynSyKPtgIi6X_4iyDbyC1fh5sokRk780"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -11,7 +11,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.fastfoodorder.R;
 import com.example.fastfoodorder.Screens.LoginScreen;
-import com.example.fastfoodorder.Screens.SignupScreen;
 
 public class fragment_account extends Fragment {
     private Button loginButton;
